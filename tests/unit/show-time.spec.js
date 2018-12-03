@@ -1,13 +1,11 @@
-import {
-  mount
-} from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import ShowTime from '@/components/ShowTime.vue'
 
 describe('ShowTime', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = mount(ShowTime)
+    wrapper = shallowMount(ShowTime)
   })
 
   it('hides hours when hours equals 0', () => {
@@ -39,7 +37,7 @@ describe('ShowTime', () => {
       minutes: 0,
       seconds: 0
     })
-    expect(innerContent('.seconds')).toContain('--')
+    expect(textOf('.seconds')).toBe('--')
   })
 
   it('does NOT contain -- when seconds equals 0 AND minutes OR hours does NOT', () => {
@@ -48,16 +46,16 @@ describe('ShowTime', () => {
       minutes: 0,
       seconds: 0
     })
-    expect(innerContent('.seconds')).not.toContain('--')
+    expect(textOf('.seconds')).not.toBe('--')
   })
 
   it('contains the title of the time type', () => {
     wrapper.setProps({ title: 'Title' })
 
-    expect(innerContent('.title')).toContain('Title')
+    expect(textOf('.title')).toBe('Title')
   })
 
   // Helpers
-  let innerContent = (element) => wrapper.find(element).html()
-  let toSee = (element) => wrapper.contains(element)
+  let textOf = (element) => wrapper.find(element).text()
+  let toSee = (element) => wrapper.find(element).isVisible()
 })
