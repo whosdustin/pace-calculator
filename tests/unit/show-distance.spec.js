@@ -49,6 +49,13 @@ describe('ShowDistance', () => {
     expect(textOf('.distance')).toBe('1609.3')
   })
 
+  it('converts miles to yards AND drops decimal if equals 0', () => {
+    wrapper.setData({ distance: 1 })
+
+    selectOption('select', 3)
+    expect(textOf('.distance')).toBe('1760')
+  })
+
   let textOf = (element) => wrapper.find(element).text()
 
   function selectOption (element, index) {

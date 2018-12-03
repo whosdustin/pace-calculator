@@ -51,8 +51,9 @@ export default {
         // Convert to k then from k to new unit
         result = this.convertFromK(this.convertToK(distance))
       }
-
-      this.distance = result.toFixed(1)
+    
+      // RegEx to remove decimal if is a 0 
+      this.distance = result.toFixed(1).replace(/[.,]0$/, '')
       this.currentUnit = this.newUnit
     }
   }
