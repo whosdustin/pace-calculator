@@ -38,6 +38,7 @@ describe('ShowDistance', () => {
 
     selectOption('select', 0) // Index in units Array
     expect(textOf('.distance')).toBe('0.6')
+    expect(textOf('.unit')).toBe('mi')
   })
 
   it('converts miles to meters', () => {
@@ -47,6 +48,7 @@ describe('ShowDistance', () => {
 
     selectOption('select', 2) // Index in units Array
     expect(textOf('.distance')).toBe('1609.3')
+    expect(textOf('.unit')).toBe('m')
   })
 
   it('converts miles to yards AND drops decimal if equals 0', () => {
@@ -54,6 +56,7 @@ describe('ShowDistance', () => {
 
     selectOption('select', 3)
     expect(textOf('.distance')).toBe('1760')
+    expect(textOf('.unit')).toBe('yds')
   })
 
   let textOf = (element) => wrapper.find(element).text()
