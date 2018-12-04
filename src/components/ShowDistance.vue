@@ -3,7 +3,7 @@
     <h2 class="distance" v-text="distance" />
     <span class="unit" v-text="currentUnit"/>
     <select v-model='newUnit'
-      @change="convertDistance">
+      @change="calculateDistance">
       <option 
         v-for="unit in units" 
         :value="unit.value"
@@ -31,15 +31,16 @@ export default {
     }
   },
   methods: {
-    convertToK(dist) {
-      const value = this.units.find(u => u.value === this.currentUnit).toK || 1
-      return dist / value
+    findConversionValue(unit) {
+      return this.units.find(u => u.value === unit).toK || 1
     },
-    convertFromK(dist) {
-      const value = this.units.find(u => u.value === this.newUnit).toK || 1
-      return dist * value
+    convertToK(distance) {
+      return distance / this.findConversionValue(this.currentUnit)
     },
-    convertDistance(event) {
+    convertFromK(distance) {
+      return distance * this.findConversionValue(this.newUnit)
+    },
+    calculateDistance() {
       let result
       let distance = this.distance
 
