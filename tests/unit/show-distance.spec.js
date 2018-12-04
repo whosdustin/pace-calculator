@@ -16,6 +16,10 @@ describe('ShowDistance', () => {
     expect(textOf('.unit')).toBe('mi')
   })
 
+  it('shows default selected unit', () => {
+    expect(wrapper.findAll('select > option').at(0).element.selected).toBe(true)
+  })
+
   it('changes the unit of measurement', () => {
     selectOption('select', 1)
     expect(textOf('.unit')).toBe('k')

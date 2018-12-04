@@ -1,13 +1,16 @@
 <template>
   <section>
-    <h2 class="distance" v-text="distance" />
+    <input class="distance"
+      v-model="distance"
+      v-text="distance" />
+
     <span class="unit" v-text="currentUnit"/>
+
     <select v-model='newUnit'
       @change="calculateDistance">
-      <option 
-        v-for="unit in units" 
+      <option
+        v-for="unit in units"
         :value="unit.value"
-        :selected="unit.value === currentUnit"
         :key="unit.value">
         {{ unit.name }}</option>
     </select>
@@ -21,7 +24,7 @@ export default {
     return {
       distance: 0,
       currentUnit: 'mi',
-      newUnit: null,
+      newUnit: 'mi',
       units: [
         { name: 'miles', value: 'mi', toK: 0.62137 },
         { name: 'kilometers', value: 'k' },
@@ -31,16 +34,16 @@ export default {
     }
   },
   methods: {
-    findConversionValue(unit) {
+    findConversionValue (unit) {
       return this.units.find(u => u.value === unit).toK || 1
     },
-    convertToK(distance) {
+    convertToK (distance) {
       return distance / this.findConversionValue(this.currentUnit)
     },
-    convertFromK(distance) {
+    convertFromK (distance) {
       return distance * this.findConversionValue(this.newUnit)
     },
-    calculateDistance() {
+    calculateDistance () {
       let result
       let distance = this.distance
 
@@ -52,8 +55,7 @@ export default {
         // Convert to k then from k to new unit
         result = this.convertFromK(this.convertToK(distance))
       }
-    
-      // RegEx to remove decimal if is a 0 
+      // RegEx to remove decimal if is a 0
       this.distance = result.toFixed(1).replace(/[.,]0$/, '')
       this.currentUnit = this.newUnit
     }
